@@ -2,9 +2,17 @@
 Ref: 基于梅尔频率倒谱系数与动态时间规整的安卓声纹解锁系统(./refs/*.pdf)
 
 ### Python库
+>Details at 'ASR/文本相关的声纹识别算法.pdf'
+
 1. ```librosa.load()``` -> ```librosa.feature.mfcc()``` -> ```mfcc.T```
 
 2. ```dtw.dtw()``` -> ```dist```
+
+3. ```logmmse.logmmse``` -> ```noise reduction```
+
+4. ```pyvad.trim``` -> ```vad```
+
+5. ```scipy.io.wavfile.write``` -> ```numpy save as wavfile``` 
 
 ### 语音数据集
 >Req: 文本相关、短语(数字串)  
@@ -25,4 +33,8 @@ Ref: 基于梅尔频率倒谱系数与动态时间规整的安卓声纹解锁系
 >命名: 姓名_数字串_遍数.wav
 
 ### TODO
-ASR/文本相关的声纹识别算法.pdf
+>Details at 'ASR/文本相关的声纹识别算法.pdf'
+
+1. 阈值效果待验证
+2. 降噪处理、端点检测效果待验证
+3. 更多数据待验证
