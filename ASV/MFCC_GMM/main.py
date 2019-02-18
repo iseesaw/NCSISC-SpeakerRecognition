@@ -15,6 +15,7 @@ import soundfile as sf
 import multiprocessing
 from sklearn import metrics
 from python_speech_features import mfcc
+from python_speech_features import delta
 
 # compute number of cpus
 cpu_cnt = multiprocessing.cpu_count()
@@ -42,11 +43,15 @@ spoofIdx = [x for x in range(len(labels)) if labels[x] == 'spoof']
 
 '''
     @param wavFilePath: the path of the .wav file
-    return: mfcc feature of the given audio file with 30 dimentions
+    return: mfcc feature of the given audio file with 39 dimentions
+        13 mfcc_features + 13 delta_mfcc_features + 13 delta2delta_mfcc_features
 '''
 def extract_mfcc_feat(wavFilePath):
     x, fs = sf.read(wavFilePath)
-    feat = mfcc(x, fs, winlen=0.025, winstep=0.01, numcep=20, winfunc=np.hamming)
+    feat_mfcc = mfcc(x, fs, winlen=0.025, winstep=0.01, numcep=13, winfunc=np.hamming)
+    delta_mfcc = delta(feat_mfcc, 2)
+    delta2delta_mfcc = delta(delta_mfcc, 2)
+    feat = np.concatenate((feat_mfcc, delta_mfcc, delta2delta_mfcc), axis=1)
     return feat
 
 ## extract feature for GENUINE training data and store in numpy array
