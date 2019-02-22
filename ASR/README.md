@@ -10,17 +10,16 @@
 ### 相关模型
 | 模型 | 相关描述 | 完成度 |
 | --- | --- | --- |
-| MFCC-DTW | 最简单的模型, 计算注册语音与登录语音MFCC特征向量的距离, 设置阈值进行判断 | 需要数据进一步判断, 端点检测、降噪问题等需要处理 |
-| GMM-UBM | 通常作为基线模型, 注册时需要重复录入语音 |  :pencil2: 实现进行中 |
-| End2End | 基于深度学习的模型, ... | :see_no_evil: 论文待读 |
-
-### 文件说明
-GMM_UBM: 模型实现
-
-MFCC_DTW: 模型实现
-
-refs: 相关参考资料(部分)
-
-wavs: 相关语音数据集(部分)
+| MFCC-DTW | 最简单的模型, 计算注册语音与登录语音MFCC特征向量的距离, 设置阈值进行判断 | 待验证 |
+| GMM-UBM | 通常作为基线模型, 注册时需要重复录入语音 |  待验证 |
+| i-vector | UBM-ivector-PLDA/SVM | 待完善 |
+| End2End | 语音直接作为LSTM/RNN输入；训练embedding；CNN判别模型 | 待实现 |
 
 
+### 文件结构
+ - Database 说话人识别数据集(数据保存本地, 上传README)
+ - End2End 端到端模型相关
+ - GMM_UBM GMM-UBM模型实现相关代码
+ - MFCC_DTW MFCC-DTW实现相关代码
+ - Refs 相关模型参考文件
+ - SIDEKIT sidekit包使用及相关模型实现
