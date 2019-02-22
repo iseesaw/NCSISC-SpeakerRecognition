@@ -21,10 +21,10 @@ from python_speech_features import delta
 cpu_cnt = multiprocessing.cpu_count()
 
 # set paths to the wav files and protocols 
-pathToTrainData = '../ASVspoof2017_V2_train'
-pathToDevData = '../ASVspoof2017_V2_dev'
-pathTotrainProtocol = '../protocol_V2/ASVspoof2017_V2_train.trn.txt'
-pathTodevProtocol = '../protocol_V2/ASVspoof2017_V2_dev.trl.txt'
+pathToTrainData = './ASVspoof2017_V2_train'
+pathToDevData = './ASVspoof2017_V2_dev'
+pathTotrainProtocol = './protocol_V2/ASVspoof2017_V2_train.trn.txt'
+pathTodevProtocol = './protocol_V2/ASVspoof2017_V2_dev.trl.txt'
 
 # read train protocol and get filelist and labels
 filelist = []
