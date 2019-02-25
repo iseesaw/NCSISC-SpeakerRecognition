@@ -51,6 +51,12 @@
 * reference: http://www-lium.univ-lemans.fr/sidekit/tutorial/rsr2015_gmm_ubm.html, this is the official document of sidekit, teaching you how to run a gmm_ubm and etc.
 
 * performance:
-  ​       EER = 50%， the official doc gives EER = 41.6%
+  ​       EER = 29.92%， the official doc gives EER = 41.6% ( In RSR2015 dataset )
 
-  ​       cost time approximately 3000s
+  ​       cost time approximately 1500s
+
+* Attention: 
+
+  ​	the sidekit package in PyPI not work in this project, because windows does not have fork in UNIX, 
+
+  so we change it to single process.
