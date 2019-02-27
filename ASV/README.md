@@ -1,6 +1,6 @@
 ## ASV
 
-
+## Replay Defender Part
 
 ### about MFCC_GMM
 
@@ -30,6 +30,17 @@
 
 
 
+### about CIMFCC_GMM
+
+* reference: 徐涌钞. 基于高频特瓶颈特征的说话人验证系统重放共计检测方法. 哈尔滨工业大学. 2018年6月
+
+* Performance:
+
+  (first version)
+
+  * EER = 15.68 % 
+  * cost time approximately  850s
+
 
 
 ## about GMM_UBM
@@ -38,17 +49,17 @@
 
 * dataset: get the data from the website: https://www.dropbox.com/s/87v8jxxu9tvbkns/development_set.zip?dl=0, then use **data_preprocessing.py** to translate the data set to the form which sidekit package can use. The file structure should be like this:
 
-   	+-------------------ASV
+    +-------------------ASV
 
-  ​	+-------------------GMM_UBM
+      ​	+-------------------GMM_UBM
 
-  ​	|-------------------development_set
+      		+-------------------development_set
 
-  ​	|-------------------TI_dataset
+      		+-------------------TI_dataset
 
-  ​	|-------------------data_preprocessing.py
+      		|-------------------data_preprocessing.py
 
-  ​	|-------------------main.py
+      		|-------------------main.py
 
 * feature: This part use the same feature as MFCC_GMM does
 
