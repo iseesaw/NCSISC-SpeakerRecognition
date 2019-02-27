@@ -6,15 +6,19 @@
 
 * target: used as base line for defending replay attack
 
-* data set: get the data set from the website: https://datashare.is.ed.ac.uk/handle/10283/3055, you should at least download **Training set of the ASVspoof 2017 database** and **Development set of the ASVspoof 2017 database**. The structure of the dir should be like this:
+* data set: get the data set from the website: https://datashare.is.ed.ac.uk/handle/10283/3055, you should at least download **Training set of the ASVspoof 2017 database** and **Development set of the ASVspoof 2017 database and related protocol_V2**. The structure of the dir should be like this:
 
   ​	+--------------ASV
 
-  ​	+-----------MFCC_GMM
+  ​		+-----------MFCC_GMM
 
-  ​	|-----------ASVspoof2017_V2_dev
+  ​		+-----------ASVspoof2017_V2
 
-  ​	|-----------ASVspoof2017_V2_train
+  ​			|-----------ASVspoof2017_V2_train
+
+  ​			|-----------ASVspoof2017_V2_dev
+
+  ​			+-----------protocol_V2
 
 * reference: https://github.com/azraelkuan/asvspoof2017, this project includes ASV tech for CQCC_GMM, MFCC_GMM and DNN method
 
@@ -52,6 +56,8 @@
 
 * performance:
   ​       EER = 29.92%， the official doc gives EER = 41.6% ( In RSR2015 dataset )
+
+  ​	without Voice activity detection, EER = 24.6%
 
   ​       cost time approximately 1500s
 

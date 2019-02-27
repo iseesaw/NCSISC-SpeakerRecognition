@@ -36,11 +36,10 @@ if __name__ == '__main__':
                                           window_size=0.025,
                                           shift=0.01,
                                           ceps_number=19,
-                                          vad="snr",
-                                          snr=40,
+                                          vad=None,
                                           pre_emphasis=0.97,
-                                          save_param=["vad", "energy", "cep"],
-                                          keep_all_features=False)
+                                          save_param=["energy", "cep"],
+                                          keep_all_features=True)
 
     show_list = np.unique(ubmList)
     channel_list = np.zeros_like(show_list, dtype = int)
@@ -49,9 +48,9 @@ if __name__ == '__main__':
     show_list = np.unique(ubmList)
     channel_list = np.zeros_like(show_list, dtype = int)
 
-    #extractor.save_list(show_list=show_list,
-    #                    channel_list=channel_list,
-    #                    num_thread=threadNum)
+    extractor.save_list(show_list=show_list,
+                        channel_list=channel_list,
+                        num_thread=threadNum)
 
 
     # Create a FeaturesServer to load features and feed the other methods
@@ -78,8 +77,8 @@ if __name__ == '__main__':
     print('Train the UBM by EM')
     # Extract all features and train a GMM without writing to disk
     ubm = sidekit.Mixture()
-    #llk = ubm.EM_split(features_server, ubmList, distribNum, num_thread=threadNum, save_partial=True)
-    #ubm.write('gmm/ubm.h5')
+    llk = ubm.EM_split(features_server, ubmList, distribNum, num_thread=threadNum, save_partial=True)
+    ubm.write('gmm/ubm.h5')
     ubm.read('gmm/ubm.h5')
 
     print('Compute the sufficient statistics')
