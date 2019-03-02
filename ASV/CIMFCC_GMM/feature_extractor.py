@@ -3,6 +3,20 @@ from python_speech_features import base
 from python_speech_features import sigproc
 from python_speech_features import delta
 from scipy.fftpack import dct
+import soundfile as sf
+
+'''
+    @param wavFilePath: the path of the .wav file
+    return: cimfcc feature of the given audio file
+        cimfcc_features + delta_cimfcc_features + delta2delta_cimfcc_features
+'''
+def extract_cimfcc_feat(wavFilePath):
+    x, fs = sf.read(wavFilePath)
+    feat = imfcc(x, fs, winlen=0.050, winstep=0.020, numcep=13, 
+        nfft=1024, lowfreq=133.33, highfreq=8000, preemph=0.97, appendEnergy=False,
+        winfunc=np.blackman)
+    feat = cmvn(feat)
+    return feat
 
 
 def imfcc(signal,samplerate=16000,winlen=0.025,winstep=0.01,numcep=13,

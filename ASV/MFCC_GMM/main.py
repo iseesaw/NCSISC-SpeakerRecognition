@@ -21,10 +21,10 @@ from python_speech_features import delta
 cpu_cnt = multiprocessing.cpu_count()
 
 # set paths to the wav files and protocols 
-pathToTrainData = './ASVspoof2017_V2_train'
-pathToDevData = './ASVspoof2017_V2_dev'
-pathTotrainProtocol = './protocol_V2/ASVspoof2017_V2_train.trn.txt'
-pathTodevProtocol = './protocol_V2/ASVspoof2017_V2_dev.trl.txt'
+pathToTrainData = '../ASVspoof2017_V2/ASVspoof2017_V2_train'
+pathToDevData = '../ASVspoof2017_V2/ASVspoof2017_V2_dev'
+pathTotrainProtocol = '../ASVspoof2017_V2/protocol_V2/ASVspoof2017_V2_train.trn.txt'
+pathTodevProtocol = '../ASVspoof2017_V2/protocol_V2/ASVspoof2017_V2_dev.trl.txt'
 
 # read train protocol and get filelist and labels
 filelist = []
@@ -49,6 +49,8 @@ spoofIdx = [x for x in range(len(labels)) if labels[x] == 'spoof']
 def extract_mfcc_feat(wavFilePath):
     x, fs = sf.read(wavFilePath)
     feat_mfcc = mfcc(x, fs, winlen=0.025, winstep=0.01, numcep=13, winfunc=np.hamming)
+    print(feat_mfcc.shape)
+    exit()
     delta_mfcc = delta(feat_mfcc, 2)
     delta2delta_mfcc = delta(delta_mfcc, 2)
     feat = np.concatenate((feat_mfcc, delta_mfcc, delta2delta_mfcc), axis=1)
@@ -66,6 +68,8 @@ for m in genuineFeatureArr:
 genuineFeatureFrames = np.mat(genuineFeatureFrames)
 #print(genuineFeatureFrames.shape)
 print('Done')
+
+exit()
 
 ## extract feature for SPOOF training data and store in numpy array
 print('Extracting feature for SPOOF training data...')
