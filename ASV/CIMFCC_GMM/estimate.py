@@ -4,7 +4,9 @@ from sklearn.mixture import GaussianMixture as GMM
 import result_io
 import feature_extractor
 import numpy as np
+import os
 
+rootPath = os.path.split(os.path.abspath(sys.argv[0]))[0]
 
 def extract_feat_and_score(genuineGMM, spoofGMM, fileName):
     cimfcc = feature_extractor.extract_cimfcc_feat(fileName)
@@ -25,8 +27,8 @@ def estimate(fileName, genuineGMM, spoofGMM):
 def loadGMMs():
     genuineGMM = GMM()
     spoofGMM = GMM()
-    result_io.gmm_read(genuineGMM, 'F:/NCSISC/workspace/NCSISC/ASV/CIMFCC_GMM/gmm/genuineGMM.h5')
-    result_io.gmm_read(spoofGMM, 'F:/NCSISC/workspace/NCSISC/ASV/CIMFCC_GMM/gmm/spoofGMM.h5')
+    result_io.gmm_read(genuineGMM, os.path.join(rootPath, 'gmm/genuineGMM.h5'))
+    result_io.gmm_read(spoofGMM, os.path.join(rootPath, 'gmm/spoofGMM.h5'))
 
     return genuineGMM, spoofGMM
 
