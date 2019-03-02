@@ -3,7 +3,7 @@
 
     ===========================================================
     implemention of the system for replay detection based on
-    MFCC + GMM
+    CIMFCC + GMM
     ===========================================================
 '''
 
@@ -14,8 +14,8 @@ from joblib import Parallel, delayed
 import soundfile as sf
 import multiprocessing
 from sklearn import metrics
-from python_speech_features import mfcc
-from python_speech_features import delta
+import feature_extractor
+import result_io
 
 # compute number of cpus
 cpu_cnt = multiprocessing.cpu_count()
@@ -41,25 +41,10 @@ spoofIdx = [x for x in range(len(labels)) if labels[x] == 'spoof']
 
 # Feature extraction for training data
 
-'''
-    @param wavFilePath: the path of the .wav file
-    return: mfcc feature of the given audio file with 39 dimentions
-        13 mfcc_features + 13 delta_mfcc_features + 13 delta2delta_mfcc_features
-'''
-def extract_mfcc_feat(wavFilePath):
-    x, fs = sf.read(wavFilePath)
-    feat_mfcc = mfcc(x, fs, winlen=0.025, winstep=0.01, numcep=13, winfunc=np.hamming)
-    print(feat_mfcc.shape)
-    exit()
-    delta_mfcc = delta(feat_mfcc, 2)
-    delta2delta_mfcc = delta(delta_mfcc, 2)
-    feat = np.concatenate((feat_mfcc, delta_mfcc, delta2delta_mfcc), axis=1)
-    return feat
-
 ## extract feature for GENUINE training data and store in numpy array
 print('Extracting feature for GENUINE training data...')
 # loop in parallel
-genuineFeatureArr = Parallel(n_jobs=cpu_cnt)(delayed(extract_mfcc_feat)(pathToTrainData + '/' +
+genuineFeatureArr = Parallel(n_jobs=cpu_cnt)(delayed(feature_extractor.extract_cimfcc_feat)(pathToTrainData + '/' +
     filelist[genuineIdx[i]]) for i in range(len(genuineIdx)))
 genuineFeatureFrames = []
 for m in genuineFeatureArr:
@@ -69,12 +54,10 @@ genuineFeatureFrames = np.mat(genuineFeatureFrames)
 #print(genuineFeatureFrames.shape)
 print('Done')
 
-exit()
-
 ## extract feature for SPOOF training data and store in numpy array
 print('Extracting feature for SPOOF training data...')
 #loop in parallel
-spoofFeatureArr = Parallel(n_jobs=cpu_cnt)(delayed(extract_mfcc_feat)(pathToTrainData + '/' + 
+spoofFeatureArr = Parallel(n_jobs=cpu_cnt)(delayed(feature_extractor.extract_cimfcc_feat)(pathToTrainData + '/' + 
     filelist[spoofIdx[i]]) for i in range(len(spoofIdx)))
 spoofFeatureFrames = []
 for m in spoofFeatureArr:
@@ -84,20 +67,29 @@ spoofFeatureFrames = np.mat(spoofFeatureFrames)
 #print(spoofFeatureFrames.shape)
 print('Done')
 
+
 # GMM training
 
 ## train GMM for GENUINE data
 print('Training GMM for GENUINE...')
 genuineGMM = GMM(n_components=64,  max_iter=100, verbose=2, verbose_interval=1)
-genuineGMM.fit(genuineFeatureFrames)
+#genuineGMM.fit(genuineFeatureFrames)
+
+## store result on disk
+#result_io.gmm_write(genuineGMM, 'gmm/genuineGMM.h5')
+result_io.gmm_read(genuineGMM, 'gmm/genuineGMM.h5')
 print('Done')
+
 
 ## train GMM for SPOOF data
 print('Training GMM for SPOOF...')
 spoofGMM = GMM(n_components=64,  max_iter=100, verbose=2, verbose_interval=1)
-spoofGMM.fit(spoofFeatureFrames)
-print('Done')
+#spoofGMM.fit(spoofFeatureFrames)
 
+## store result on disk
+#result_io.gmm_write(spoofGMM, 'gmm/spoofGMM.h5')
+result_io.gmm_read(spoofGMM, 'gmm/spoofGMM.h5')
+print('Done')
 
 
 # Feature extraction and scoring of development data
@@ -119,10 +111,10 @@ print('Computing scores for dev trials...')
     return: it's score computing from GMM 
 '''
 def extract_feat_and_score(filePath):
-    mfcc = extract_mfcc_feat(filePath)
+    cimfcc = feature_extractor.extract_cimfcc_feat(filePath)
     # score computation
-    llk_genuine = np.mean(genuineGMM.score(mfcc))
-    llk_spoof = np.mean(spoofGMM.score(mfcc))
+    llk_genuine = np.mean(genuineGMM.score(cimfcc))
+    llk_spoof = np.mean(spoofGMM.score(cimfcc))
     return llk_genuine - llk_spoof
 
 scores = Parallel(n_jobs=cpu_cnt)(delayed(extract_feat_and_score)(pathToDevData + '/' + 
