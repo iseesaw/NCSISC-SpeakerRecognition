@@ -72,6 +72,11 @@ class VPR():
 
         self.ubm.read(dir_path + 'model\\ubm_King_all.h5')
 
+    def delete_f(file):
+        file = dir_path + '\\userdata\\{}.h5'.format(file)
+        if os.path.exists(file):
+            os.path.remove(file)
+
     def enroll(self, user):
         '''
         User Enroll --> enroll_idmap
@@ -84,7 +89,9 @@ class VPR():
         enrollN = 3
         for i in range(enrollN):
             models.append(user)
-            segments.append(enroll_f.format(username=user, index=i + 1))
+            segment = enroll_f.format(username=user, index=i + 1)
+            segments.append(segment)
+            self.delete_f(segment)
         enroll_idmap = sidekit.IdMap()
         enroll_idmap.leftids = np.asarray(models)
         enroll_idmap.rightids = np.asarray(segments)
@@ -120,7 +127,8 @@ class VPR():
         regulation_factor = 3
         enroll_sv = enroll_stat.adapt_mean_map_multisession(
             self.ubm, regulation_factor)
-        enroll_sv.write(dir_path + 'userdata\\{}_enroll_sv.h5'.format(user))
+        self.delete_f('{}_enroll_sv'.format(user))
+        enroll_sv.write()
 
     def login(self, user, path):
         '''
@@ -135,6 +143,7 @@ class VPR():
         test_ndx.segset = np.asarray(segments)
         test_ndx.trialmask = np.ones((1, 1), dtype='bool')
         ########### extract features ############
+        self.delete_f(path)
         show_list = np.unique(test_ndx.segset)
         channel_list = np.zeros_like(show_list, dtype=int)
         self.features_extractor.save_list(
@@ -145,8 +154,9 @@ class VPR():
         ##########################################
 
         # read enroll_sv
-        sv = sidekit.StatServer(
-            dir_path + 'userdata\\{}_enroll_sv.h5'.format(user))
+        sv_path = dir_path + 'userdata\\{}_enroll_sv.h5'.format(user)
+        sv = sidekit.StatServer(sv_path)
+        self.delete_f('{}_enroll_sv'.format(user))
         # score
         scores_gmm_ubm = sidekit.gmm_scoring(
             self.ubm,
@@ -160,17 +170,17 @@ class VPR():
 if __name__ == '__main__':
 
     vpr = VPR()
-
-    if sys.argv[1] == 'enroll':
-        try:
-            vpr.enroll(sys.argv[2])
-            print('yes')
-        except:
-            print('no')
-    if sys.argv[1] == 'login':
-        try:
-            result, score = vpr.login(sys.argv[2], sys.argv[3])
-            print(result)
-            print('{:.2f}'.format(score))
-        except:
-            print('no')
+    vpr.enroll('zky')
+    # if sys.argv[1] == 'enroll':
+    #     try:
+    #         vpr.enroll(sys.argv[2])
+    #         print('yes')
+    #     except:
+    #         print('no')
+    # if sys.argv[1] == 'login':
+    #     try:
+    #         result, score = vpr.login(sys.argv[2], sys.argv[3])
+    #         print(result)
+    #         print('{:.2f}'.format(score))
+    #     except:
+    #         print('no')
