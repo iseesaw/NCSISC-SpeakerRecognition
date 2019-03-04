@@ -14,7 +14,7 @@ import sys
 import warnings
 from config import *
 warnings.filterwarnings('ignore')
-
+import os
 
 class VPR():
 
@@ -29,7 +29,7 @@ class VPR():
         '''
         self.features_extractor = sidekit.FeaturesExtractor(
             audio_filename_structure=data_path + '{}.wav',
-            feature_filename_structure=dir_path + 'userdata\\{}.h5',
+            feature_filename_structure=dir_path + 'userdata/{}.h5',
             sampling_frequency=16000,
             lower_frequency=133.3333,
             higher_frequency=6955.4976,
@@ -47,7 +47,7 @@ class VPR():
 
         self.features_server = sidekit.FeaturesServer(
             features_extractor=None,
-            feature_filename_structure=dir_path + 'userdata\\{}.h5',
+            feature_filename_structure=dir_path + 'userdata/{}.h5',
             sources=None,
             dataset_list=['cep'],
             mask=None,
@@ -70,12 +70,12 @@ class VPR():
 
         self.ubm = sidekit.Mixture()
 
-        self.ubm.read(dir_path + 'model\\ubm_King_all.h5')
+        self.ubm.read(dir_path + 'model/ubm_King_all.h5')
 
-    def delete_f(file):
-        file = dir_path + '\\userdata\\{}.h5'.format(file)
+    def delete_f(self, file):
+        file = dir_path + '/userdata/{}.h5'.format(file)
         if os.path.exists(file):
-            os.path.remove(file)
+            os.remove(file)
 
     def enroll(self, user):
         '''
@@ -128,7 +128,7 @@ class VPR():
         enroll_sv = enroll_stat.adapt_mean_map_multisession(
             self.ubm, regulation_factor)
         self.delete_f('{}_enroll_sv'.format(user))
-        enroll_sv.write()
+        enroll_sv.write(dir_path + 'userdata/{}_enroll_sv.h5'.format(user))
 
     def login(self, user, path):
         '''
@@ -154,7 +154,8 @@ class VPR():
         ##########################################
 
         # read enroll_sv
-        sv_path = dir_path + 'userdata\\{}_enroll_sv.h5'.format(user)
+        sv_path = dir_path + 'userdata/{}_enroll_sv.h5'.format(user)
+
         sv = sidekit.StatServer(sv_path)
         self.delete_f('{}_enroll_sv'.format(user))
         # score
@@ -170,17 +171,16 @@ class VPR():
 if __name__ == '__main__':
 
     vpr = VPR()
-    vpr.enroll('zky')
-    # if sys.argv[1] == 'enroll':
-    #     try:
-    #         vpr.enroll(sys.argv[2])
-    #         print('yes')
-    #     except:
-    #         print('no')
-    # if sys.argv[1] == 'login':
-    #     try:
-    #         result, score = vpr.login(sys.argv[2], sys.argv[3])
-    #         print(result)
-    #         print('{:.2f}'.format(score))
-    #     except:
-    #         print('no')
+    if sys.argv[1] == 'enroll':
+        try:
+            vpr.enroll(sys.argv[2])
+            print('yes', end='')
+        except:
+            print('no', end='')
+    if sys.argv[1] == 'login':
+        try:
+            result, score = vpr.login(sys.argv[2], sys.argv[3])
+            print(result, end='')
+            print('{:.2f}'.format(score), end='')
+        except:
+            print('no', end='')
