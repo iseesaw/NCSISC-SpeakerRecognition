@@ -108,7 +108,7 @@ def get_InvertedMelfilterbanks(nfilt=20,nfft=512,samplerate=16000,lowfreq=0,high
     melbin = np.floor((nfft+1)*base.mel2hz(melpoints)/samplerate)
     invertedmelbin = np.floor(nfft/2 + 1 - np.flip(melbin))
 
-    fbank = np.zeros([nfft, nfft//2+1])
+    fbank = np.zeros([nfilt, nfft//2+1])
     for j in range(0, nfilt):
         for i in range(int(invertedmelbin[j]), int(invertedmelbin[j+1])):
             fbank[j,i] = (i - invertedmelbin[j]) / (invertedmelbin[j+1] - invertedmelbin[j])

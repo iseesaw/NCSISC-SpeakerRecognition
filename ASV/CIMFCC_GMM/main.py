@@ -14,8 +14,13 @@ from joblib import Parallel, delayed
 import soundfile as sf
 import multiprocessing
 from sklearn import metrics
-import feature_extractor
-import result_io
+from utils import feature_extractor
+from utils import result_io
+import matplotlib.pyplot as plt
+import os
+
+# get the root path
+workdirPath = os.path.dirname(os.path.abspath(__file__))
 
 # compute number of cpus
 cpu_cnt = multiprocessing.cpu_count()
@@ -51,7 +56,6 @@ for m in genuineFeatureArr:
     for i in range(m.shape[0]):
         genuineFeatureFrames.append(m[i])
 genuineFeatureFrames = np.mat(genuineFeatureFrames)
-#print(genuineFeatureFrames.shape)
 print('Done')
 
 ## extract feature for SPOOF training data and store in numpy array
@@ -64,7 +68,6 @@ for m in spoofFeatureArr:
     for i in range(m.shape[0]):
         spoofFeatureFrames.append(m[i])
 spoofFeatureFrames = np.mat(spoofFeatureFrames)
-#print(spoofFeatureFrames.shape)
 print('Done')
 
 
@@ -77,7 +80,7 @@ genuineGMM = GMM(n_components=64,  max_iter=100, verbose=2, verbose_interval=1)
 
 ## store result on disk
 #result_io.gmm_write(genuineGMM, 'gmm/genuineGMM.h5')
-result_io.gmm_read(genuineGMM, 'gmm/genuineGMM.h5')
+result_io.gmm_read(genuineGMM, os.path.join(workdirPath, 'gmm/genuineGMM.h5'))
 print('Done')
 
 
@@ -88,7 +91,7 @@ spoofGMM = GMM(n_components=64,  max_iter=100, verbose=2, verbose_interval=1)
 
 ## store result on disk
 #result_io.gmm_write(spoofGMM, 'gmm/spoofGMM.h5')
-result_io.gmm_read(spoofGMM, 'gmm/spoofGMM.h5')
+result_io.gmm_read(spoofGMM, os.path.join(workdirPath, 'gmm/spoofGMM.h5'))
 print('Done')
 
 
@@ -124,5 +127,22 @@ print('Done')
 # compute performance 
 fpr, tpr, threshold = metrics.roc_curve(labels, scores, pos_label='genuine')
 fnr = 1 - tpr
-eer = fpr[np.nanargmin(np.absolute((fnr - fpr)))] * 100
-print('ERR is %.2f' % eer)
+idx = np.nanargmin(np.absolute((fnr - fpr)))
+eer = fpr[idx] * 100
+print('ERR is %.2f%%' % eer)
+print('The threshold is %f at the point of eer' % threshold[idx])
+
+roc_auc = metrics.auc(fpr, tpr)
+plt.figure()
+lw = 2
+plt.figure(figsize=(10,10))
+plt.plot(fpr, tpr, color='darkorange',
+         lw=lw, label='ROC curve (area = %0.2f)' % roc_auc) 
+plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver operating characteristic example')
+plt.legend(loc="lower right")
+plt.savefig('roc.png')

@@ -1,12 +1,14 @@
 import sys
 import getopt
 from sklearn.mixture import GaussianMixture as GMM
-import result_io
-import feature_extractor
+from utils import result_io
+from utils import feature_extractor
 import numpy as np
 import os
 
 rootPath = os.path.split(os.path.abspath(sys.argv[0]))[0]
+
+threshold = 3.786782
 
 def extract_feat_and_score(genuineGMM, spoofGMM, fileName):
     cimfcc = feature_extractor.extract_cimfcc_feat(fileName)
@@ -18,7 +20,7 @@ def extract_feat_and_score(genuineGMM, spoofGMM, fileName):
 
 def estimate(fileName, genuineGMM, spoofGMM):
     llk = extract_feat_and_score(genuineGMM, spoofGMM, fileName)
-    if llk >= 0:
+    if llk >= threshold:
         return True
     else:
         return False
