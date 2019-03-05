@@ -8,7 +8,7 @@ import os
 
 rootPath = os.path.split(os.path.abspath(sys.argv[0]))[0]
 
-threshold = 3.786782
+threshold = 3.957640
 
 def extract_feat_and_score(genuineGMM, spoofGMM, fileName):
     cimfcc = feature_extractor.extract_cimfcc_feat(fileName)
