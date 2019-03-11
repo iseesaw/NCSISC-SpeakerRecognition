@@ -64,7 +64,6 @@
     <tr>
         <td>i-vector</td>
         <td>50-75 *20segs *4</td>
-
     </tr>
     <tr>
         <td>plda</td>
