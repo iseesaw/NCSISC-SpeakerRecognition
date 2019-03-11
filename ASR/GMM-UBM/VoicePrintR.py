@@ -16,6 +16,7 @@ from config import *
 warnings.filterwarnings('ignore')
 import os
 
+
 class VPR():
 
     def __init__(self):
@@ -157,7 +158,7 @@ class VPR():
         sv_path = dir_path + 'userdata/{}_enroll_sv.h5'.format(user)
 
         sv = sidekit.StatServer(sv_path)
-        self.delete_f('{}_enroll_sv'.format(user))
+        # self.delete_f('{}_enroll_sv'.format(user))
         # score
         scores_gmm_ubm = sidekit.gmm_scoring(
             self.ubm,
@@ -174,13 +175,12 @@ if __name__ == '__main__':
     if sys.argv[1] == 'enroll':
         try:
             vpr.enroll(sys.argv[2])
-            print('yes', end='')
+            print('yes')
         except:
-            print('no', end='')
+            print('no ,something wrong')
     if sys.argv[1] == 'login':
         try:
             result, score = vpr.login(sys.argv[2], sys.argv[3])
-            print(result, end='')
-            print('{:.2f}'.format(score), end='')
+            print(result + ' {:.2f}'.format(score))
         except:
-            print('no', end='')
+            print('no ,something wrong')
