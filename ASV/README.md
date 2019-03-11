@@ -38,7 +38,7 @@
 
   (first version)
 
-  * EER = 15.68 % 
+  * EER = 5.58 % 
   * cost time approximately  850s
 
 
@@ -77,3 +77,4 @@
   ​	the sidekit package in PyPI not work in this project, because windows does not have fork in UNIX, 
 
   so we change it to single process.
+
