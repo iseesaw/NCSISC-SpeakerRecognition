@@ -50,7 +50,7 @@
     <tr>
         <td colspan="2">--------------------training set1-------------------</td>
     </tr>
-        <tr>
+    <tr>
         <td>i-vector</td>
         <td>1-50 *20segs *4</td>
     </tr>
