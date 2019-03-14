@@ -56,6 +56,12 @@
         <td>1-25 *30segs *4</td>
     </tr>
     <tr>
+<<<<<<< HEAD
+=======
+        <td colspan="2">--------------------training set1-------------------</td>
+    </tr>
+    <tr>
+>>>>>>> d88c05189f083b26e7872b597d0676c4d3659922
         <td>i-vector</td>
         <td>1-50 *20segs *4</td>
     </tr>
@@ -64,8 +70,20 @@
         <td>1-50 *20segs *4</td>
     </tr>
     <tr>
+<<<<<<< HEAD
         <td>enroll</td>
         <td>10 *3segs *4</td>
+=======
+        <td colspan="2">--------------------training set2-------------------</td>
+    </tr>
+    <tr>
+        <td>i-vector</td>
+        <td>50-75 *20segs *4</td>
+    </tr>
+    <tr>
+        <td>plda</td>
+        <td>75-100 *20segs *4</td>
+>>>>>>> d88c05189f083b26e7872b597d0676c4d3659922
     </tr>
     <tr>
         <td>test</td>
