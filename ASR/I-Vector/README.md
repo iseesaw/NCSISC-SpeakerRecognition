@@ -38,40 +38,30 @@
     <tr>
         <td>dataset</td>
         <td >aishell 1 & ST2017</td>
+        <td >info</td>
     </tr>
     <tr>
         <td>gender</td>
-        <td>120 males/females*40segs</td>
-    </tr>
+        <td>each contains 120 males/females*40segs</td>
+        <td rowspan="6">
+            minDCF = 0.10676 <br>
+            eer = 0.01774 <br>
+            train ubm takes 4000s <br>
+            train i-vector takes 3000s <br>
+            train plda takes 1000s <br>
+        </td>
+    </tr> 
     <tr>
         <td>ubm</td>
-        <td>1-50 *20segs *4</td>
+        <td>1-25 *30segs *4</td>
     </tr>
     <tr>
-        <td colspan="2">--------------------training set1-------------------</td>
-    </tr>
-        <tr>
         <td>i-vector</td>
         <td>1-50 *20segs *4</td>
     </tr>
     <tr>
         <td>plda</td>
         <td>1-50 *20segs *4</td>
-    </tr>
-    <tr>
-        <td colspan="2">--------------------training set2-------------------</td>
-    </tr>
-    <tr>
-        <td>i-vector</td>
-        <td>50-75 *20segs *4</td>
-
-    </tr>
-    <tr>
-        <td>plda</td>
-        <td>75-100 *20segs *4</td>
-    </tr>
-    <tr>
-        <td colspan="2">-----------------------test set-----------------------</td>
     </tr>
     <tr>
         <td>enroll</td>
@@ -79,8 +69,30 @@
     </tr>
     <tr>
         <td>test</td>
-        <td>20 *20segs *4</td>
+        <td>20 *15segs *4</td>
     </tr>
+    <tr>
+        <td colspan="3">only on AIshell dataset</td>
+    </tr>
+    <tr>
+        <td>
+            ubm <br>
+            i-vector <br>
+            plda   <br>
+        </td>
+        <td>
+            (100M + 100F) *20segs <br>
+            (50M + 50F) *20segs  <br>
+            (50M + 50F) *20segs <br>
+        </td>
+        <td>
+            ubm takes 6812s <br>
+            total takes 13526s <br>
+            minDCF = 0.682 <br>
+            eer = 0.151
+        </td>
+    </tr>
+
 </table>
 
 #### Reference 

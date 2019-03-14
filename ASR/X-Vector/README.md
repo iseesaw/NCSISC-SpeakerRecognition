@@ -49,7 +49,7 @@ d-vector生成细节, 包括输入设置、神经网络参数etc.
     + stats pooling问题
     + predict部分代码
 
-#### Ref：使用Kaldi模型
+#### 使用Kaldi模型
 1. 准备语料训练集以及测试集，可以是不同语言越多越好
 2. 使用mfcc提取特征，尝试过替换Mel-filter bank特征效果并不好，主要也没有调节各种参数
 4. 利用回响和三种噪音增强了训练数据，测试了增强于非增强的效果还是非常明显
@@ -60,6 +60,8 @@ d-vector生成细节, 包括输入设置、神经网络参数etc.
 9. 利用embedding层提取xvector特征
 10. lda降维然后再用plda打分
 11. 计算eer  
+
+[使用sre16预训练模型提取x-vector](kaldi_xvector.md)  
 [sre16/v2](https://github.com/kaldi-asr/kaldi/tree/master/egs/sre16/v2)  
 [voxceleb/v2](https://github.com/kaldi-asr/kaldi/tree/master/egs/voxceleb/v2)									
 
