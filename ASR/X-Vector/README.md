@@ -4,7 +4,7 @@ i-vector/x-vector + plda
 
 ### ~~x-vector代码实现~~
 ~~步骤参考[tdnn.md](tdnn.md)~~  
-~~Demo代码[x_vector.py](x_vector.py) ~~
+~~Demo代码[x_vector.py](x_vector.py)~~
 
 ### Kaldi模型
 自己训练或者用已经有的, 考虑到训练数据规模的问题 
