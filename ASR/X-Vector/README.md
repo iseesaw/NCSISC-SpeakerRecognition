@@ -1,55 +1,15 @@
-### 挑战杯-跨设备说话人识别
+## 挑战杯-跨设备说话人识别
+i-vector/x-vector + plda   
+主要从~~代码实现和~~Kaldi模型~~实现两个方面~~进行  
 
-模型设定: x-vector + lda + plda    
-audio -> MFCC/Fbank -> context frames -> TDNN -> softmax -> output (train)    
-                                            -> hidden layer output (x-vector)   
-                                            -> LDA -> PLDA -> output    
+### ~~x-vector代码实现~~
+~~步骤参考[tdnn.md](tdnn.md)  
+Demo代码[x_vector.py](x_vector.py) ~~
 
-### x-vector
-可以先从d-vector入手
+### Kaldi模型
+自己训练或者用已经有的, 考虑到训练数据规模的问题 
 
-#### 数据预处理
-
-#### 模型结构
-<img src="https://img-blog.csdnimg.cn/201811071035470.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODg1ODg2MA==,size_16,color_FFFFFF,t_70">  
-
-搭建模型过程：  
-- Input: filterbank(24,) + context{-2, +2}, 120x512  
-- Layer2: TDNN, 1536x512  
-- Layer3: TDNN, 1536x512  
-- Layer4: Dense, 512x512  
-- Layer5: Dense, 512x1500  
-- Layer6: Stats Pooling, 1500Tx512  
-- Layer7: Dense, 3000x512 ==>>> x-vector ==>>> LDA(512x150) ==>>> PLDA  
-- Layer8: Dense, 512x512  
-- Layer9: softmax, 512xN  
-
->处理细节  
-> 
-> - 多个相邻帧作为输入, 每个输入产生一个x-vector, 然后可以求平均值或求和获得语音的x-vector  [Ref](https://github.com/mravanelli/SincNet/issues/10)
-> - ...
->   
->More: VAD、噪声增强、去除过短utt、去除utt少的speaker
-
-Ref  
-(Already Reading)   
-1. [DEEP NEURAL NETWORKS FOR SMALL FOOTPRINT TEXT-DEPENDENT SPEAKER VERIFICATION](http://www.mirlab.org/conference_papers/International_Conference/ICASSP%202014/papers/p4080-variani.pdf)  
-d-vector生成细节, 包括输入设置、神经网络参数etc.
-
-(Need to read)  
-1. [X-VECTORS: ROBUST DNN EMBEDDINGS FOR SPEAKER RECOGNITION](https://www.danielpovey.com/files/2018_icassp_xvectors.pdf)  
-2. [End-to-End Text-Dependent Speaker Verification](http://cn.arxiv.org/pdf/1509.08062)
-
-#### 代码实现
-已实现[Demo](x_vector.py)(待处理数据测试)  
-
-- Next
-    + 数据处理、训练模型
-    + TDNN可用性测试
-    + stats pooling问题
-    + predict部分代码
-
-#### 使用Kaldi模型
+#### 训练模型Kaldi模型步骤
 1. 准备语料训练集以及测试集，可以是不同语言越多越好
 2. 使用mfcc提取特征，尝试过替换Mel-filter bank特征效果并不好，主要也没有调节各种参数
 4. 利用回响和三种噪音增强了训练数据，测试了增强于非增强的效果还是非常明显
@@ -61,7 +21,145 @@ d-vector生成细节, 包括输入设置、神经网络参数etc.
 10. lda降维然后再用plda打分
 11. 计算eer  
 
-[使用sre16预训练模型提取x-vector](kaldi_xvector.md)  
-[sre16/v2](https://github.com/kaldi-asr/kaldi/tree/master/egs/sre16/v2)  
-[voxceleb/v2](https://github.com/kaldi-asr/kaldi/tree/master/egs/voxceleb/v2)									
+#### 使用Kaldi已有模型
+- [使用sre16预训练模型提取x-vector](kaldi_xvector.md)  
+    + 参考[x-vector/README](x-vector/README.md)
+- [sre16/v2](https://github.com/kaldi-asr/kaldi/tree/master/egs/sre16/v2)  
+- [voxceleb/v2](https://github.com/kaldi-asr/kaldi/tree/master/egs/voxceleb/v2)  									
 
+### 测试集A得分情况
+$$Score = \frac{\Sigma_{i}^{N}{\beta{(p_i)}}}{N}$$
+$$\beta{(p_i)}当且仅当p_i为真时等于1, 否则等于0; p_i为真当且仅当语音i判断正确$$
+
+<table>
+    <tr>
+        <td>模型</td>
+        <td>
+            训练数据及设置<br>
+            Aishell(100m 100f) <br>
+            ST2017(100m 100f)
+        </td>
+        <td>六组测试得分</td>
+    </tr>
+    <tr>
+        <td rowspan="3">
+            i-vector <br>
+            sidekit
+        </td>
+        <td>
+            AIshell + ST2017 s<br>
+            ubm 25p *4 *30s <br>
+            i-vector 50p *4 *20s<br>
+            plda 50p *4 *20s <br>
+        </td>
+        <td>
+            group0 threshold=5/10 score=0.61/0.58 <br>
+            group1 threshold=0 score=0.57 <br>
+            group2 threshold=5 score=0.56 <br>
+            group3 threshold=0 score=0.54 <br>
+            group4 threshold=0/5 score=0.65/0.7 <br>
+            group5 threshold=-10/25 score=0.56 <br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            AIshell<br>
+            ubm (100m + 100f)*20s<br>
+            i-vector (50m + 50f)*20s<br>
+            plda (50m + 50f)*20s
+        </td>
+        <td>
+            group0 threshold=5/15 score=0.61 <br>
+            group1 threshold=5 score=0.55 <br>
+            group2 threshold=0 score=0.56 <br>
+            group3 threshold=5 score=0.54 <br>
+            group4 threshold=0/5 score=0.63/0.66 <br>
+            group5 threshold=-5 score=0.58 <br>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="4">
+            x-vector <br>
+            Kaldi
+        </td>
+        <td>
+            sre16 model <br>
+            backend - cosin
+        </td>
+        <td>
+            group0 threshold=0.5 score=0.64 <br>
+            group1 threshold=0.5 score=0.59 <br>
+            group2 threshold=0.5 score=0.57 <br>
+            group3 threshold=0.5 score=0.61 <br>
+            group4 threshold=0.5 score=0.54 <br>
+            group5 threshold=0.5 score=0.59 <br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            sre16 model <br>
+            backend - plda <br>
+            sidekit, 100*50uttrs
+        </td>
+        <td>
+            group0 threshold=10-13/35 score=0.67 <br>
+            group1 threshold=25 score=0.65 <br>
+            group2 threshold=30-34 score=0.74 <br>
+            group3 threshold=25-30 score=0.67 <br>
+            group4 threshold=20-25 score=0.65 <br>
+            group5 threshold=35-40 score=0.57 <br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            voxceleb <br>
+            backend - plda <br>
+            (sidekit)
+        </td>
+        <td>
+            group0 threshold=14-16score=0.7 <br>
+            group1 threshold=20-25 score=0.58 <br>
+            group2 threshold=18-25 score=0.65 <br>
+            group3 threshold=20-25 score=0.73 <br>
+            group4 threshold=25-28 score=0.7 <br>
+            group5 threshold=21-25 score=0.6 <br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            voxceleb <br>
+            backend - plda <br>
+            (Kaldi)
+        </td>
+        <td>
+            <strong>
+            group0 threshold=8-14 score=0.83 <br>
+            group1 threshold=8-14 score=0.86 <br>
+            group2 threshold=12-16 score=0.79 <br>
+            group3 threshold=10-16 score=0.87 <br>
+            group4 threshold=8-12 score=0.8 <br>
+            group5 threshold=12-16 score=0.78 <br>
+            </strong>
+        </td>
+    </tr>
+</table>
+
+
+#### Next
+使用Kaldi的voxveleb模型进行x-vector和plda, 6组平均得分0.82  
+下一步可以改进的地方:   
+
+- shell脚本编写
+    + 完善测试语音数据切分脚本
+    + 编写x-vector extract + plda计算一体化脚本
+    + 使用shell + python模式
+- 在Kaldi上使用aishell(1, 2)数据(+ST2017)训练x-vector和plda
+    + 考虑使用不同信道(IOS、Android、Desktop)的数据训练(3000+speakers, 1000+hours)
+    + 使用data argument(要选择好数据)
+    + 根据run.sh修改
+    + 准备训练数据文件或预提取特征
+    + 尝试GPU训练

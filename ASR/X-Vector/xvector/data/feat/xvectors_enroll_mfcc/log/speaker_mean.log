@@ -1,8 +1,0 @@
-# ivector-mean ark:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector/data/spk2utt scp:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector/data/feat/xvectors_enroll_mfcc/xvector.scp ark,scp:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector/data/feat/xvectors_enroll_mfcc/spk_xvector.ark,/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector/data/feat/xvectors_enroll_mfcc/spk_xvector.scp ark,t:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector/data/feat/xvectors_enroll_mfcc/num_utts.ark 
-# Started at Thu Mar 14 07:31:14 PDT 2019
-#
-ivector-mean ark:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector/data/spk2utt scp:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector/data/feat/xvectors_enroll_mfcc/xvector.scp ark,scp:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector/data/feat/xvectors_enroll_mfcc/spk_xvector.ark,/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector/data/feat/xvectors_enroll_mfcc/spk_xvector.scp ark,t:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector/data/feat/xvectors_enroll_mfcc/num_utts.ark 
-LOG (ivector-mean[5.5]:main():ivector-mean.cc:134) Computed mean of 60 speakers (0 with no utterances), consisting of 690 utterances (0 absent from input).
-LOG (ivector-mean[5.5]:main():ivector-mean.cc:145) Norm of mean of speakers is 36.671, root-mean-square speaker-iVector length divided by sqrt(dim) is 2.0969
-# Accounting: time=0 threads=1
-# Ended (code 0) at Thu Mar 14 07:31:14 PDT 2019, elapsed time 0 seconds
