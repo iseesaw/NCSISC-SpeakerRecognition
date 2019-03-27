@@ -1,0 +1,10 @@
+# compute-mfcc-feats --verbose=2 --config=conf/mfcc.conf scp,p:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/log/wav_attack.1.scp ark:- | copy-feats --write-num-frames=ark,t:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/log/utt2num_frames.1 --compress=true ark:- ark,scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/feat/raw_mfcc_attack.1.ark,/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/feat/raw_mfcc_attack.1.scp 
+# Started at Tue Mar 26 20:34:25 PDT 2019
+#
+copy-feats --write-num-frames=ark,t:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/log/utt2num_frames.1 --compress=true ark:- ark,scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/feat/raw_mfcc_attack.1.ark,/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/feat/raw_mfcc_attack.1.scp 
+compute-mfcc-feats --verbose=2 --config=conf/mfcc.conf scp,p:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/log/wav_attack.1.scp ark:- 
+VLOG[2] (compute-mfcc-feats[5.5]:main():compute-mfcc-feats.cc:173) Processed features for key 1007-1007_login
+LOG (compute-mfcc-feats[5.5]:main():compute-mfcc-feats.cc:176)  Done 1 out of 1 utterances.
+LOG (copy-feats[5.5]:main():copy-feats.cc:143) Copied 1 feature matrices.
+# Accounting: time=0 threads=1
+# Ended (code 0) at Tue Mar 26 20:34:25 PDT 2019, elapsed time 0 seconds

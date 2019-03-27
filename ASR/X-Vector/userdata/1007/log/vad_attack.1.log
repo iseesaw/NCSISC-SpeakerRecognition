@@ -1,0 +1,8 @@
+# compute-vad --config=conf/vad.conf scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/attack/split1/1/feats.scp ark,scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/feat/vad_attack.1.ark,/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/feat/vad_attack.1.scp 
+# Started at Tue Mar 26 20:34:26 PDT 2019
+#
+compute-vad --config=conf/vad.conf scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/attack/split1/1/feats.scp ark,scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/feat/vad_attack.1.ark,/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/feat/vad_attack.1.scp 
+LOG (compute-vad[5.5]:main():compute-vad.cc:95) Applied energy based voice activity detection; processed 1 utterances successfully; 0 had empty features, and 0 were completely unvoiced.
+LOG (compute-vad[5.5]:main():compute-vad.cc:99) Proportion of voiced frames was 0.635581 over 697 frames.
+# Accounting: time=0 threads=1
+# Ended (code 0) at Tue Mar 26 20:34:26 PDT 2019, elapsed time 0 seconds

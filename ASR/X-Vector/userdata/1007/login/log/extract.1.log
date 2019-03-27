@@ -1,0 +1,33 @@
+# nnet3-xvector-compute --use-gpu=no --min-chunk-size=25 --chunk-size=10000 --cache-capacity=64 "nnet3-copy --nnet-config=model/xvector_nnet_1a/extract.config model/xvector_nnet_1a/final.raw - |" "ark:apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=300 scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/attack/split1/1/feats.scp ark:- | select-voiced-frames ark:- scp,s,cs:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/attack/split1/1/vad.scp ark:- |" ark,scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/login/xvector.1.ark,/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/login/xvector.1.scp 
+# Started at Tue Mar 26 20:34:26 PDT 2019
+#
+nnet3-xvector-compute --use-gpu=no --min-chunk-size=25 --chunk-size=10000 --cache-capacity=64 'nnet3-copy --nnet-config=model/xvector_nnet_1a/extract.config model/xvector_nnet_1a/final.raw - |' 'ark:apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=300 scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/attack/split1/1/feats.scp ark:- | select-voiced-frames ark:- scp,s,cs:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/attack/split1/1/vad.scp ark:- |' ark,scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/login/xvector.1.ark,/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/login/xvector.1.scp 
+nnet3-copy --nnet-config=model/xvector_nnet_1a/extract.config model/xvector_nnet_1a/final.raw - 
+WARNING (nnet3-copy[5.5]:Check():nnet-nnet.cc:789) Node tdnn6.relu is never used to compute any output.
+WARNING (nnet3-copy[5.5]:Check():nnet-nnet.cc:789) Node tdnn6.batchnorm is never used to compute any output.
+WARNING (nnet3-copy[5.5]:Check():nnet-nnet.cc:789) Node tdnn7.affine is never used to compute any output.
+WARNING (nnet3-copy[5.5]:Check():nnet-nnet.cc:789) Node tdnn7.relu is never used to compute any output.
+WARNING (nnet3-copy[5.5]:Check():nnet-nnet.cc:789) Node tdnn7.batchnorm is never used to compute any output.
+WARNING (nnet3-copy[5.5]:Check():nnet-nnet.cc:789) Node output.affine is never used to compute any output.
+WARNING (nnet3-copy[5.5]:Check():nnet-nnet.cc:789) Node output.log-softmax is never used to compute any output.
+LOG (nnet3-copy[5.5]:main():nnet3-copy.cc:114) Copied raw neural net from model/xvector_nnet_1a/final.raw to -
+WARNING (nnet3-xvector-compute[5.5]:Check():nnet-nnet.cc:789) Node tdnn6.relu is never used to compute any output.
+WARNING (nnet3-xvector-compute[5.5]:Check():nnet-nnet.cc:789) Node tdnn6.batchnorm is never used to compute any output.
+WARNING (nnet3-xvector-compute[5.5]:Check():nnet-nnet.cc:789) Node tdnn7.affine is never used to compute any output.
+WARNING (nnet3-xvector-compute[5.5]:Check():nnet-nnet.cc:789) Node tdnn7.relu is never used to compute any output.
+WARNING (nnet3-xvector-compute[5.5]:Check():nnet-nnet.cc:789) Node tdnn7.batchnorm is never used to compute any output.
+WARNING (nnet3-xvector-compute[5.5]:Check():nnet-nnet.cc:789) Node output.affine is never used to compute any output.
+WARNING (nnet3-xvector-compute[5.5]:Check():nnet-nnet.cc:789) Node output.log-softmax is never used to compute any output.
+LOG (nnet3-xvector-compute[5.5]:RemoveOrphanNodes():nnet-nnet.cc:948) Removed 11 orphan nodes.
+LOG (nnet3-xvector-compute[5.5]:RemoveOrphanComponents():nnet-nnet.cc:847) Removing 17 orphan components.
+LOG (nnet3-xvector-compute[5.5]:Collapse():nnet-utils.cc:1378) Added 6 components, removed 17
+select-voiced-frames ark:- scp,s,cs:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/attack/split1/1/vad.scp ark:- 
+apply-cmvn-sliding --norm-vars=false --center=true --cmn-window=300 scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/attack/split1/1/feats.scp ark:- 
+LOG (apply-cmvn-sliding[5.5]:main():apply-cmvn-sliding.cc:75) Applied sliding-window cepstral mean normalization to 1 utterances, 0 had errors.
+LOG (select-voiced-frames[5.5]:main():select-voiced-frames.cc:106) Done selecting voiced frames; processed 1 utterances, 0 had errors.
+LOG (nnet3-xvector-compute[5.5]:main():nnet3-xvector-compute.cc:169) Chunk size of 10000 is greater than the number of rows in utterance: 1007-1007_login, using chunk size  of 443
+LOG (nnet3-xvector-compute[5.5]:main():nnet3-xvector-compute.cc:225) Time taken 0.7517s: real-time factor assuming 100 frames/sec is 0.169684
+LOG (nnet3-xvector-compute[5.5]:main():nnet3-xvector-compute.cc:228) Done 1 utterances, failed for 0
+LOG (nnet3-xvector-compute[5.5]:~CachingOptimizingCompiler():nnet-optimize.cc:710) 0.309 seconds taken in nnet3 compilation total (breakdown: 0.306 compilation, 0.000727 optimization, 0 shortcut expansion, 0.000169 checking, 0 computing indexes, 0.00162 misc.) + 0 I/O.
+# Accounting: time=1 threads=1
+# Ended (code 0) at Tue Mar 26 20:34:27 PDT 2019, elapsed time 1 seconds

@@ -1,8 +1,0 @@
-# compute-vad --config=conf/vad.conf scp:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector_voxceleb/data/enroll/split1/1/feats.scp ark,scp:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector_voxceleb/data/enroll/feat/vad/vad_enroll.1.ark,/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector_voxceleb/data/enroll/feat/vad/vad_enroll.1.scp 
-# Started at Fri Mar 15 19:25:01 PDT 2019
-#
-compute-vad --config=conf/vad.conf scp:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector_voxceleb/data/enroll/split1/1/feats.scp ark,scp:/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector_voxceleb/data/enroll/feat/vad/vad_enroll.1.ark,/home/iseesaw/Desktop/Share/CrossDeviceSR/kaldi/ivector-xvector-master/xvector_voxceleb/data/enroll/feat/vad/vad_enroll.1.scp 
-LOG (compute-vad[5.5]:main():compute-vad.cc:95) Applied energy based voice activity detection; processed 90 utterances successfully; 0 had empty features, and 0 were completely unvoiced.
-LOG (compute-vad[5.5]:main():compute-vad.cc:99) Proportion of voiced frames was 0.878891 over 35109 frames.
-# Accounting: time=0 threads=1
-# Ended (code 0) at Fri Mar 15 19:25:01 PDT 2019, elapsed time 0 seconds
