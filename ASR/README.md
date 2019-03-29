@@ -2,23 +2,16 @@
 
 >该文件夹下为声纹识别(Speaker Recognition)相关资料及代码实现  
 
-### 声纹识别  
+### 声纹识别模型
 
-- MFCC-DTW 初期尝试
-- GMM-UBM Baseline系统
-- I-Vector youtu-vector基础
-- X-Vector 跨设备说话人识别模型构想
-- Info 相关资料总结
+| 框架 | 模型 | 训练情况 | 测试情况 | 下一步改进 |
+| :---: | :---: | :---: | :---: | :---: |
+| sidekit |  gmm-ubm   | 数字串文本无关数据集，本地训练1h+  |   eer=2%(测试数据不够严谨)    |  baseline系统，泛化能力弱    |
+| sidekit |  i-vector   |   本地训练3h+(中小规模数据集)    |   最好eer=1.7%    |   尝试中等规模数据训练，源码多进程改进 <br> 尝试切分语音进行注册登录 <br> (已有强制对齐工具，对速度可能有较大影响，性能待测试) <br> 后续可部署服务器  |
+| kaldi |  i-vector   |    本地虚拟机带不动预训练模型测试 <br>未来杯服务器可以跑通预训练模型测试 <br> 参数设置有问题，未来杯服务器训练机器跑崩了  |   预训练模型(英文)跨信道测试eer=10%    |   缺乏训练及测试环境   |
+| kaldi |  x-vector  |  虚拟机跑通预训练模型 <br> 未来杯服务器模型训练跑通<br>本地虚拟机模型训练带不动     |   预训练模型跨信道测试eer=10% <br> 预训练模型数字串无关测试eer=2% <br> 服务器训练模型跨信道测试最优eer=12%    |   模型有待优化训练<br> 泛化能力较强(data augment) <br> 缺乏训练环境 <br> 学生机服务器环境部署失败，无法部署   |
 
->详见各文件下READEME.md
-
-### 声纹识别系统
-
-防重放攻击声纹认证系统实现目标 -- [youtu-vector](https://blog.csdn.net/jojozhangju/article/details/78637118)  
-<img src="https://img-blog.csdn.net/20171126141616746?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvam9qb3poYW5nanU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" height="50%" width="60%">
-
-### 相关参考
-
-- [声纹识别学习路径](https://blog.csdn.net/robingao1994/article/details/82659005)
-
-说话人识别学习路径无非就是 GMM-UBM -> JFA -> Ivector-PLDA -> DNN embeddings -> E2E
+### 当前总结
+- kaldi预训练模型使用的数据量较大，并且使用大量data augment，模型适应能力强；由于缺乏训练环境以及数据集问题，个人训练模型不如预训练模型；可以直接使用预训练模型，但服务器计算能力较弱，kaldi部署失败(学生机性能比虚拟机弱，编译卡死)
+- 鉴于服务器计算能力以及本地机器训练能力，下一步使用中等规模数据训练sidekit i-vector模型(可考虑使用data augment)；之后注册登录考虑进行数字切分(使用 forced aligment，切分耗时1-3s，性能有待商榷)
+>具体信息详见各文件夹
