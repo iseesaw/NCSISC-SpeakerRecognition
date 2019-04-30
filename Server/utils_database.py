@@ -6,7 +6,7 @@
 """
 import pymysql
 # 连接数据库
-db = pymysql.connect("localhost", "root", "password", "database_name")
+db = pymysql.connect("localhost", "root", "123456", "server_database")
 
 # 使用cursor()获取操作游标
 cursor = db.cursor()
