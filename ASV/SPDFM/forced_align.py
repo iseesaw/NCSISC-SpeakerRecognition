@@ -30,7 +30,7 @@ def generateLab(wavFiledir):
     files = os.listdir(wavFiledir)
     for file in files:
         if not os.path.isdir(file):
-            model = file.rstrip().split('-')[0]
+            model = file.rstrip().split('_')[0]
             model = model[::-1]
             key = model[3:]
             prefix = file.rstrip().split('.')[0]
