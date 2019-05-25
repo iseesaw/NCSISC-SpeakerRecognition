@@ -1,0 +1,29 @@
+# ivector-plda-scoring --normalize-length=true "ivector-copy-plda --smoothing=0.0 model/xvector_nnet_1a/xvectors_train/plda - |" "ark:ivector-subtract-global-mean model/xvector_nnet_1a/xvectors_train/mean.vec scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/spk_xvector.scp ark:- | transform-vec model/xvector_nnet_1a/xvectors_train/transform.mat ark:- ark:- | ivector-normalize-length ark:- ark:- |" "ark:ivector-subtract-global-mean model/xvector_nnet_1a/xvectors_train/mean.vec scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/login/xvector.scp ark:- | transform-vec model/xvector_nnet_1a/xvectors_train/transform.mat ark:- ark:- | ivector-normalize-length ark:- ark:- |" "cat '/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/score/trials' | cut -d\  --fields=1,2 |" /home/iseesaw/Desktop/Share/NCSISC/userdata/1007/score/login.scores 
+# Started at Tue Mar 26 20:34:27 PDT 2019
+#
+ivector-plda-scoring --normalize-length=true 'ivector-copy-plda --smoothing=0.0 model/xvector_nnet_1a/xvectors_train/plda - |' 'ark:ivector-subtract-global-mean model/xvector_nnet_1a/xvectors_train/mean.vec scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/spk_xvector.scp ark:- | transform-vec model/xvector_nnet_1a/xvectors_train/transform.mat ark:- ark:- | ivector-normalize-length ark:- ark:- |' 'ark:ivector-subtract-global-mean model/xvector_nnet_1a/xvectors_train/mean.vec scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/login/xvector.scp ark:- | transform-vec model/xvector_nnet_1a/xvectors_train/transform.mat ark:- ark:- | ivector-normalize-length ark:- ark:- |' 'cat '\''/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/score/trials'\'' | cut -d\  --fields=1,2 |' /home/iseesaw/Desktop/Share/NCSISC/userdata/1007/score/login.scores 
+ivector-copy-plda --smoothing=0.0 model/xvector_nnet_1a/xvectors_train/plda - 
+ivector-subtract-global-mean model/xvector_nnet_1a/xvectors_train/mean.vec scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/spk_xvector.scp ark:- 
+transform-vec model/xvector_nnet_1a/xvectors_train/transform.mat ark:- ark:- 
+ivector-normalize-length ark:- ark:- 
+LOG (ivector-subtract-global-mean[5.5]:main():ivector-subtract-global-mean.cc:108) Wrote 1 mean-subtracted iVectors
+LOG (transform-vec[5.5]:main():transform-vec.cc:85) Applied transform to 1 vectors.
+LOG (ivector-normalize-length[5.5]:main():ivector-normalize-length.cc:90) Processed 1 iVectors.
+LOG (ivector-normalize-length[5.5]:main():ivector-normalize-length.cc:94) Average ratio of iVector to expected length was 1.24418, standard deviation was 0
+ivector-subtract-global-mean model/xvector_nnet_1a/xvectors_train/mean.vec scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/login/xvector.scp ark:- 
+ivector-normalize-length ark:- ark:- 
+LOG (ivector-subtract-global-mean[5.5]:main():ivector-subtract-global-mean.cc:108) Wrote 1 mean-subtracted iVectors
+transform-vec model/xvector_nnet_1a/xvectors_train/transform.mat ark:- ark:- 
+LOG (transform-vec[5.5]:main():transform-vec.cc:85) Applied transform to 1 vectors.
+LOG (ivector-plda-scoring[5.5]:main():ivector-plda-scoring.cc:96) Reading train iVectors
+LOG (ivector-plda-scoring[5.5]:main():ivector-plda-scoring.cc:122) Read 1 training iVectors, errors on 0
+LOG (ivector-normalize-length[5.5]:main():ivector-normalize-length.cc:90) Processed 1 iVectors.
+LOG (ivector-plda-scoring[5.5]:main():ivector-plda-scoring.cc:126) Average renormalization scale on training iVectors was 0.946911
+LOG (ivector-plda-scoring[5.5]:main():ivector-plda-scoring.cc:129) Reading test iVectors
+LOG (ivector-normalize-length[5.5]:main():ivector-normalize-length.cc:94) Average ratio of iVector to expected length was 1.53024, standard deviation was 0
+LOG (ivector-plda-scoring[5.5]:main():ivector-plda-scoring.cc:147) Read 1 test iVectors.
+LOG (ivector-plda-scoring[5.5]:main():ivector-plda-scoring.cc:150) Average renormalization scale on test iVectors was 0.959701
+LOG (ivector-plda-scoring[5.5]:main():ivector-plda-scoring.cc:214) Mean score was 42.6747, standard deviation was 0
+LOG (ivector-plda-scoring[5.5]:main():ivector-plda-scoring.cc:217) Processed 1 trials, 0 had errors.
+# Accounting: time=0 threads=1
+# Ended (code 0) at Tue Mar 26 20:34:27 PDT 2019, elapsed time 0 seconds

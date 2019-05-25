@@ -1,0 +1,8 @@
+# ivector-mean ark:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/data/spk2utt scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/xvector.scp ark,scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/spk_xvector.ark,/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/spk_xvector.scp ark,t:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/num_utts.ark 
+# Started at Tue Mar 26 20:34:07 PDT 2019
+#
+ivector-mean ark:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/data/spk2utt scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/xvector.scp ark,scp:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/spk_xvector.ark,/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/spk_xvector.scp ark,t:/home/iseesaw/Desktop/Share/NCSISC/userdata/1007/model/num_utts.ark 
+LOG (ivector-mean[5.5]:main():ivector-mean.cc:134) Computed mean of 1 speakers (0 with no utterances), consisting of 3 utterances (0 absent from input).
+LOG (ivector-mean[5.5]:main():ivector-mean.cc:145) Norm of mean of speakers is 47.2395, root-mean-square speaker-iVector length divided by sqrt(dim) is 2.08771
+# Accounting: time=0 threads=1
+# Ended (code 0) at Tue Mar 26 20:34:07 PDT 2019, elapsed time 0 seconds
